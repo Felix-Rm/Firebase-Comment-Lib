@@ -1,7 +1,8 @@
 class CommentSys {
-  constructor(callback, firebase) {
+  constructor(callback, firebase, date_format) {
     this.callback = callback
     this.firebase = firebase
+    this.date_format = date_format
     this.loadedComments = {}
 
     this.firebase.on('value', (x) => this.showComment(x))
@@ -25,7 +26,7 @@ class CommentSys {
 
     var date = new Date()
 
-    if (this.cnf.date_format == 1)
+    if (this.date_format == 'de')
       info.date = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     else
       info.date = (date.getMonth() + 1) + '.' + date.getDate() + '.' + date.getFullYear()
@@ -33,7 +34,7 @@ class CommentSys {
     var key = date.getFullYear() + ':' + (date.getMonth() + 1) + ':' + date.getDate() + '-' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds()
     info.key = key
     delete info.error_handler
-    this.ref.child(key).set(info)
+    this.firebase.child(key).set(info)
 
   }
 
