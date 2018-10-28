@@ -6,12 +6,15 @@ class CommentSys {
   }
 
   displayComment(data) {
-    for (var i = data.at + 1; i < this.config.maxStorage; i++) {
-      if (this.loadedComments[data[i].id] == null) {
-        this.loadedComments[data[i].id] = true
-        this.config.addCallback(data[i])
+    try {
+      for (var i = data.at + 1; i < this.config.maxStorage; i++) {
+        if (this.loadedComments[data[i].id] == null) {
+          this.loadedComments[data[i].id] = true
+          this.config.addCallback(data[i])
+        }
       }
-    }
+    }catch(e){}
+    
     for (var i = 0; i <= data.at; i++) {
       if (this.loadedComments[data[i].id] == null) {
         this.loadedComments[data[i].id] = true
